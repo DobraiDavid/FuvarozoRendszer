@@ -10,9 +10,14 @@ class Fuvarozo extends Authenticatable
     use Notifiable;
 
     protected $fillable = ['nev','email','jelszo'];
-    protected $hidden = ['jelszo'];
+    protected $hidden = ['jelszo', 'remember_token'];
 
-    public function jarmuvek() {
+    public function getAuthPassword()
+    {
+        return $this->jelszo;
+    }
+
+    public function jarmu() {
         return $this->hasOne(Jarmu::class);
     }
 
