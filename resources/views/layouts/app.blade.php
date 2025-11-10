@@ -59,6 +59,12 @@
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
+    @if(session('warning'))
+    <div class="alert" style="background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;">
+        ⚠️ {{ session('warning') }}
+    </div>
+    @endif
+
     @if($errors->any())
     <div class="alert alert-error">
         <ul style="margin-left: 1.5rem;">

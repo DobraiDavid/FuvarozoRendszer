@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FuvarozoController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,8 +16,12 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// Registration routes
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
 // Admin routes
-Route::middleware(['auth:fuvarozo', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth:fuvarozo', AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/munkak', [AdminController::class, 'index'])->name('munkak.index');
     Route::get('/munkak/create', [AdminController::class, 'create'])->name('munkak.create');
     Route::post('/munkak', [AdminController::class, 'store'])->name('munkak.store');

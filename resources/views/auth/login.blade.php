@@ -24,7 +24,11 @@
     </form>
 
     <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #ddd;">
-        <p><strong>Teszt fiók adatok:</strong></p>
+        <p style="text-align: center;">
+            Nincs még fiókod? <a href="{{ route('register') }}" style="color: #007bff;">Regisztráció</a>
+        </p>
+
+        <p style="margin-top: 1rem;"><strong>Teszt fiók adatok:</strong></p>
         <p>Admin: admin@fuvarozo.hu / password</p>
         <p>Fuvarozó: kovacs@fuvarozo.hu / password</p>
     </div>

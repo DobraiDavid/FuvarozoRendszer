@@ -9,8 +9,15 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     // List all jobs
-    public function index() {
-        $munkak = Munka::with('fuvarozo')->get();
+    public function index(Request $request) {
+        $query = Munka::with('fuvarozo');
+
+        // Status filtering (bonus feature)
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        $munkak = $query->get();
         return view('admin.munkak.index', compact('munkak'));
     }
 
@@ -49,7 +56,15 @@ class AdminController extends Controller
             'status' => 'required'
         ]);
 
+        // Check if status changed to 'sikertelen' for notification
+        $oldStatus = $munka->status;
         $munka->update($request->all());
+
+        // Notification for failed jobs (bonus feature)
+        if ($request->status == 'sikertelen' && $oldStatus != 'sikertelen') {
+            session()->flash('warning', 'Figyelem: A munka sikertelenre lett állítva!');
+        }
+
         return redirect()->route('admin.munkak.index')->with('success', 'Munka frissítve!');
     }
 

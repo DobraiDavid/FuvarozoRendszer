@@ -1,10 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Munkáim')
+@section('title', 'Fuvarozó - Munkáim')
 
 @section('content')
 <div class="card">
     <h2 style="margin-bottom: 1.5rem;">Hozzám rendelt munkák</h2>
+    <p style="color: #666; margin-bottom: 1.5rem;">
+        @if($munkak->count() > 0)
+        {{ $munkak->count() }} munka van hozzád rendelve
+        @else
+        Jelenleg nincs hozzád rendelt munka
+        @endif
+    </p>
 
     @forelse($munkak as $munka)
     <div class="card" style="margin-bottom: 1rem; background: #f9f9f9;">
